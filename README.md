@@ -1,4 +1,4 @@
-# Unife Tate Gallery
+# Unife Tate Gallery 🖼
 
 ## Introduction
 
