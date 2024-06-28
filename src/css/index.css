@@ -1,0 +1,16 @@
+header {
+  display: flex;
+  justify-content: space-around;
+}
+
+nav {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
