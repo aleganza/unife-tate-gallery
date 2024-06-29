@@ -7,17 +7,17 @@ switch($request) {
   case "/$PROJECT_NAME/":
     require('src/php/views/home.php');
     break;
-  case "/$PROJECT_NAME/artisti":
-    require('src/php/views/artisti.php');
+  case "/$PROJECT_NAME/artists":
+    require('src/php/views/artists.php');
     break;
-  case "/$PROJECT_NAME/correlazioni":
-    require('src/php/views/correlazioni.php');
+  case "/$PROJECT_NAME/correlations":
+    require('src/php/views/correlations.php');
     break;
-  case "/$PROJECT_NAME/opere":
-    require('src/php/views/opere.php');
+  case "/$PROJECT_NAME/artworks":
+    require('src/php/views/artworks.php');
     break;
-  case "/$PROJECT_NAME/statistiche":
-    require('src/php/views/statistiche.php');
+  case "/$PROJECT_NAME/statistics":
+    require('src/php/views/statistics.php');
     break;
 }
 

@@ -18,7 +18,6 @@ body {
   /* margin: 0 50px; */
   margin: 140px var(--horizontal-spacing) 0 var(--horizontal-spacing);
   font-family: "Poppins", sans-serif;
-  background-color: #fffff9;
 }
 
 .elegant {
@@ -75,6 +74,7 @@ nav .nav-items a {
   text-decoration: none;
   color: black;
   text-shadow: white 1px 0 10px;
+  /* mix-blend-mode: difference; */
   text-transform: uppercase;
   font-weight: 500;
   transition: 0.2s ease;
@@ -84,7 +84,9 @@ nav .nav-items a.active, a:hover {
   color: var(--primary-color);
 }
 
-.body-wrapper {
+
+
+.body-container {
   display: flex;
   gap: var(--column-gap);
   max-width: var(--page-width);
@@ -92,14 +94,18 @@ nav .nav-items a.active, a:hover {
   margin-top: 60px;
 }
 
-.body-wrapper .column {
+.body-container.vertical {
+  flex-direction: column;
+}
+
+.body-container .column {
   display: flex;
   flex-direction: column;
   gap: var(--column-gap);
   width: 100%;
 }
 
-.body-wrapper .column .page-heading {
+.body-container .column .page-heading {
   width: 100%;
 }
 
@@ -113,25 +119,29 @@ nav .nav-items a.active, a:hover {
   color: var(--primary-color);
 }
 
+.page-heading.secondary h1 {
+  font-size: 2.2rem;
+}
+
 .page-heading p {
   font-size: 0.8vw;
   line-height: 1.2vw;
 }
 
-.body-wrapper .column .artwork-card {
+.body-container .column .artwork-card {
   position: relative;
   overflow: hidden; /* Assicura che l'overflow non esca dalla card */
   transition: 0.2s ease;
   will-change: translate;
 }
 
-.body-wrapper .column .artwork-card img {
+.body-container .column .artwork-card img {
   width: 100%;
   height: 100%;
   transition: 0.2s ease;
 }
 
-.body-wrapper .column .artwork-card .overlay {
+.body-container .column .artwork-card .overlay {
   opacity: 0;
   position: absolute;
   top: 0;
@@ -144,7 +154,7 @@ nav .nav-items a.active, a:hover {
   transition: 0.1s ease;
 }
 
-.body-wrapper .column .artwork-card .info {
+.body-container .column .artwork-card .info {
   opacity: 0;
   position: absolute;
   bottom: 0;
@@ -157,7 +167,7 @@ nav .nav-items a.active, a:hover {
   transition: 0.1s ease;
 }
 
-.body-wrapper .column .artwork-card .info .left {
+.body-container .column .artwork-card .info .left {
   font-size: 0.8vw;
   color: white;
   font-weight: 500;
@@ -168,7 +178,7 @@ nav .nav-items a.active, a:hover {
   transform: translateY(50%);
 }
 
-.body-wrapper .column .artwork-card .info .right {
+.body-container .column .artwork-card .info .right {
   font-size: 0.8vw;
   color: white;
   font-weight: 500;
@@ -176,15 +186,56 @@ nav .nav-items a.active, a:hover {
   text-align: end;
 }
 
-.body-wrapper .column .artwork-card:hover .overlay {
+.body-container .column .artwork-card:hover .overlay {
   opacity: 1;
 }
 
-.body-wrapper .column .artwork-card:hover .info {
+.body-container .column .artwork-card:hover .info {
   opacity: 1;
   transform: translateY(0);
 }
 
-.body-wrapper .column .artwork-card:hover {
+.body-container .column .artwork-card:hover {
   transform: scale(1.03);
+}
+
+form {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  justify-content: space-between;
+  min-width: 100%;
+}
+
+form .group {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+form select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form select:focus {
+  outline: 2px solid var(--primary-color);
+}
+
+form button {
+  display: flex;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin-left: 10px;
 }

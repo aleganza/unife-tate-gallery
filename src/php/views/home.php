@@ -11,7 +11,7 @@
   <?php
   require("src/php/components/navbar.php");
   ?>
-  <div class="body-wrapper">
+  <div class="body-container">
 
     <?php
     require("src/php/utils/constants.php");
@@ -50,7 +50,7 @@
               <div class="right">
                 ' . $record["year"] . '
                 <br>
-                ' . $record["width"] . 'x' . $record["height"] . '
+                ' . $record["width"] . 'x' . $record["height"] . '' . $record["units"] . '
               </div>
             </div>
             <img src="' . $record["thumbnail_url"] . '" alt="">
