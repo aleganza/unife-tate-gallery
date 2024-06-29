@@ -19,9 +19,6 @@ switch($request) {
   case "/$PROJECT_NAME/statistiche":
     require('src/php/views/statistiche.php');
     break;
-  default:
-    require('src/php/views/404.php');
-    break;
 }
 
 ?>
