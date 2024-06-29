@@ -12,41 +12,51 @@
   require("src/php/components/navbar.php");
   ?>
   <div class="body-wrapper">
-    <div class="column" id="col1">
-      <!-- Colonna 1 -->
-    </div>
-    <div class="column" id="col2">
-      <!-- Colonna 2 -->
-    </div>
-    <div class="column" id="col3">
-      <!-- Colonna 3 -->
-    </div>
 
     <?php
-    $db = new mysqli("localhost", "root", "", "unife_tate_gallery");
-    $sql = "SELECT thumbnail_url FROM artwork LIMIT 50";
+    require("src/php/utils/constants.php");
+
+    $db = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASSWORD, $MYSQL_DB);
+    $sql = "SELECT * FROM artwork LIMIT 440, 90";
+    // $sql = "SELECT * FROM artwork LIMIT 500, 90";
     $rs = $db->query($sql);
     $record = $rs->fetch_assoc();
 
-    $colCounter = 1;
+    $artwork = 1;
 
-    while ($record) {
-      $imgPath = $record['thumbnail_url'];
-      
-      echo "<script>
-        var col = document.getElementById('col$colCounter');
-        var div = document.createElement('div');
-        div.className = 'artwork-card';
-        div.innerHTML = '<div class=\"overlay\"></div><img src=\"$imgPath\" alt=\"Artwork Image\">';
-        col.appendChild(div);
-      </script>";
+    for ($i = 1; $i <= 4; $i++) {
+      echo '<div class="column">';
 
-      $colCounter++;
-      if ($colCounter > 3) {
-        $colCounter = 1;
+      if ($i == 1) {
+        echo '
+          <div class="page-heading">
+            <h1 class="elegant">Unife<br>Tate <span>Gallery</span>.</h1>
+            <p>
+              Project for <strong>Basi di Dati</strong> course at the University of Ferrara by <i>Alessio Ganzarolli</i> and <i>Simone Acuti</i>.
+              The purpose of this project is to develop a PHP website to visualize the <strong>Tate Collection</strong> dataset.
+            </p>
+          </div>
+        ';
       }
-      
-      $record = $rs->fetch_assoc();
+
+      while ($record && $artwork % 12 != 0) {
+        echo '
+          <div class="artwork-card">
+            <div class="overlay"></div>';
+
+        # skip rows with no image
+        while($record["thumbnail_url"] == "") $record = $rs->fetch_assoc();
+
+        echo '
+            <img src="' . $record["thumbnail_url"] . '" alt="">
+          </div>';
+
+        $record = $rs->fetch_assoc();
+        $artwork++;
+      }
+      echo '</div>';
+
+      $artwork = 1;
     }
     ?>
   </div>
