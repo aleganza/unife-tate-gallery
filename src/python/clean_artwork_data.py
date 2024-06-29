@@ -50,9 +50,13 @@ def clean_artwork_data():
                                   'thumbnailUrl': 'thumbnail_url',
                                 })
 
-  df_artist = pd.read_csv(PATHS['PROCESSED_ARTIST_DATA_PATH'])
+  
+  # urls are broken, fixing them :)
+  df_copy['thumbnail_url'] = df_copy['thumbnail_url'].str.replace("/www.", "/media.")
   
   # check for foreign key integrity
+  df_artist = pd.read_csv(PATHS['PROCESSED_ARTIST_DATA_PATH'])
+  
   invalid_artists = len(df_copy[~df_copy['artist_id'].isin(df_artist['id'])])
   print(f'• Found {invalid_artists} rows with invalid foreign key values, dropping rows...')
   
