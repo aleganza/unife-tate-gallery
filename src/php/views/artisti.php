@@ -11,7 +11,6 @@
   <?php
   require("src/php/components/navbar.php");
   ?>
-  <h1>ARTISTI</h1>
 </body>
 
 <?php

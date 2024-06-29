@@ -28,7 +28,7 @@ CREATE TABLE artwork (
   depth VARCHAR(8) NOT NULL
   units CHAR(2) NOT NULL
   inscription VARCHAR(300) NOT NULL
-  thumbnail_copyright VARCHAR(300) NOT NULL
+  thumbnail_copyright VARCHAR(100) NOT NULL
   thumbnail_url VARCHAR(300) NOT NULL
   url VARCHAR(300) NOT NULL
 )
