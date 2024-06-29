@@ -39,14 +39,20 @@
       }
 
       while ($record && $artwork % 12 != 0) {
-        echo '
-          <div class="artwork-card">
-            <div class="overlay"></div>';
-
         # skip rows with no image
         while($record["thumbnail_url"] == "") $record = $rs->fetch_assoc();
 
         echo '
+          <div class="artwork-card">
+            <div class="overlay"></div>
+            <div class="info">
+              <div class="left">' . $record["title"] . '</div>
+              <div class="right">
+                ' . $record["year"] . '
+                <br>
+                ' . $record["width"] . 'x' . $record["height"] . '
+              </div>
+            </div>
             <img src="' . $record["thumbnail_url"] . '" alt="">
           </div>';
 

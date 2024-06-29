@@ -122,14 +122,13 @@ nav .nav-items a.active, a:hover {
   position: relative;
   overflow: hidden; /* Assicura che l'overflow non esca dalla card */
   transition: 0.2s ease;
-  will-change: transform;
+  will-change: translate;
 }
 
 .body-wrapper .column .artwork-card img {
   width: 100%;
   height: 100%;
   transition: 0.2s ease;
-  will-change: transform;
 }
 
 .body-wrapper .column .artwork-card .overlay {
@@ -137,16 +136,49 @@ nav .nav-items a.active, a:hover {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 5;
   width: 100%;
   height: 100%;
   /* background: linear-gradient(transparent, #0000004d) center / cover; */
-  background: linear-gradient(0turn, #0000004d, transparent);
+  background: linear-gradient(0turn, #00000075, transparent);
   transition: 0.1s ease;
-  will-change: transform;
+}
+
+.body-wrapper .column .artwork-card .info {
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  z-index: 10;
+  width: 100%;
+  padding: 10px;
+  transform: translateY(20px);
+  transition: 0.1s ease;
+}
+
+.body-wrapper .column .artwork-card .info .left {
+  font-size: 0.8vw;
+  color: white;
+  font-weight: 500;
+  transform: translateY(50%);
+}
+
+.body-wrapper .column .artwork-card .info .right {
+  font-size: 0.8vw;
+  color: white;
+  font-weight: 500;
+  margin-left: auto;
+  text-align: end;
 }
 
 .body-wrapper .column .artwork-card:hover .overlay {
   opacity: 1;
+}
+
+.body-wrapper .column .artwork-card:hover .info {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .body-wrapper .column .artwork-card:hover {
