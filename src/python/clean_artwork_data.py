@@ -4,7 +4,8 @@ from common import (
   save_file,
   sort_by_col,
   set_to_zero_missing_numeric_attributes,
-  handle_zero_values
+  handle_zero_values,
+  update_column_names
 )
 
 from constants import (
@@ -18,9 +19,7 @@ def clean_artwork_data():
   df = pd.read_csv(PATHS['RAW_ARTWORK_DATA_PATH'])
   df_copy = df.copy()
   
-  
-  df_copy = _remove_duplicates(df_copy)
-  
+  # remove useless data
   df_copy = df_copy.replace("no date", 0) \
                    .replace('c.', "") \
                    .replace('(upper):', "") \
@@ -30,11 +29,22 @@ def clean_artwork_data():
                    .replace('each', "")
   df_copy = df_copy[df_copy['year'] != 'c.1997-9']
   
+  # overall cleaning
+  df_copy = _remove_duplicates(df_copy)
   df_copy = set_to_zero_missing_numeric_attributes(df_copy, ['year'])
-  
   df_copy = handle_missing(df_copy, ARTWORK_DEFAULT_VALUES)
   df_copy = sort_by_col(df_copy, 'id')
   df_copy = handle_zero_values(df_copy, ['year'])
+  
+  # rename columns
+  df_copy = update_column_names(df_copy, {
+                                  'artistRole': 'artist_role',
+                                  'artistId': 'artist_id',
+                                  'creditLine': 'credit_line',
+                                  'acquisitionYear': 'acquisition_year',
+                                  'thumbnailCopyright': 'thumbnail_copyright',
+                                  'thumbnailUrl': 'thumbnail_url',
+                                })
   
   save_file(df_copy, PATHS['PROCESSED_ARTWORK_DATA_PATH'])
   

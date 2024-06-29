@@ -27,6 +27,9 @@ def handle_zero_values(df, values):
     df[val] = df[val].replace(0, 'Unknown')
   
   return df
+
+def update_column_names(df, new_column_names):
+  return df.rename(columns=new_column_names)
     
 def handle_missing(df, defaults):
   n_rows_with_missing_values = df.isnull().any(axis=1).sum()
