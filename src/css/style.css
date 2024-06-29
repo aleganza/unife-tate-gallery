@@ -31,7 +31,7 @@ header {
   z-index: 9999;
   width: 100%;
   padding: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing);
-  backdrop-filter: blur(215px);
+  backdrop-filter: blur(20px);
 }
 
 header .brand {

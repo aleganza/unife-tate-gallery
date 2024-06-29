@@ -38,10 +38,10 @@ def clean_artist_data():
                                   'placeOfDeath': 'place_of_death',
                                 })
   
-  df_copy['year_of_birth'] = df_copy['year_of_birth'].astype(str)
-  df_copy['place_of_death'] = df_copy['place_of_death'].astype(str)
+  # df_copy['year_of_birth'] = df_copy['year_of_birth'].astype(str)
+  # df_copy['place_of_death'] = df_copy['place_of_death'].astype(str)
   
-  check(df_copy)
+  # check(df_copy)
   
   save_file(df_copy, PATHS['PROCESSED_ARTIST_DATA_PATH'])
   

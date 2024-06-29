@@ -24,7 +24,7 @@
 
     <?php
     $db = new mysqli("localhost", "root", "", "unife_tate_gallery");
-    $sql = "SELECT thumbnail_url FROM artwork LIMIT 200";
+    $sql = "SELECT thumbnail_url FROM artwork LIMIT 50";
     $rs = $db->query($sql);
     $record = $rs->fetch_assoc();
 
@@ -32,6 +32,7 @@
 
     while ($record) {
       $imgPath = $record['thumbnail_url'];
+      
       echo "<script>
         var col = document.getElementById('col$colCounter');
         var div = document.createElement('div');
