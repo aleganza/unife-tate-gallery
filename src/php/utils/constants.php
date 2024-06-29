@@ -1,7 +1,7 @@
 <?php
-  define("PROJECT_NAME", "unife-tate-gallery");
-  define("MYSQL_HOST", "localhost");
-  define("MYSQL_USER", "root");
-  define("MYSQL_PASSWORD", "");
-  define("MYSQL_DB", PROJECT_NAME);
+  $PROJECT_NAME = "unife-tate-gallery";
+  $MYSQL_HOST = "localhost";
+  $MYSQL_USER = "root";
+  $MYSQL_PASSWORD = "";
+  $MYSQL_DB = $PROJECT_NAME;
 ?>
