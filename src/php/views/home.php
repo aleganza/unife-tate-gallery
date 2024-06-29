@@ -17,8 +17,7 @@
     require("src/php/utils/constants.php");
 
     $db = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASSWORD, $MYSQL_DB);
-    $sql = "SELECT * FROM artwork LIMIT 440, 90";
-    // $sql = "SELECT * FROM artwork LIMIT 500, 90";
+    $sql = "SELECT * FROM artwork LIMIT 500, 90";
     $rs = $db->query($sql);
     $record = $rs->fetch_assoc();
 
@@ -30,7 +29,7 @@
       if ($i == 1) {
         echo '
           <div class="page-heading">
-            <h1 class="elegant">Unife<br>Tate <span>Gallery</span>.</h1>
+            <h1 class="elegant">Unife<br>Tate <span>Gallery</span></h1>
             <p>
               Project for <strong>Basi di Dati</strong> course at the University of Ferrara by <i>Alessio Ganzarolli</i> and <i>Simone Acuti</i>.
               The purpose of this project is to develop a PHP website to visualize the <strong>Tate Collection</strong> dataset.
