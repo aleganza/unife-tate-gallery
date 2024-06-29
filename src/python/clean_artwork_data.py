@@ -1,6 +1,8 @@
 import pandas as pd
+import numpy as np
 from common import (
   handle_missing,
+  remove_commas,
   save_file,
   sort_by_col,
   set_to_zero_missing_numeric_attributes,
@@ -28,6 +30,8 @@ def clean_artwork_data():
                    .replace('(each):', "") \
                    .replace('each', "")
   df_copy = df_copy[df_copy['year'] != 'c.1997-9']
+
+  # df_copy = remove_commas(df_copy)
   
   # overall cleaning
   df_copy = _remove_duplicates(df_copy)
@@ -45,6 +49,17 @@ def clean_artwork_data():
                                   'thumbnailCopyright': 'thumbnail_copyright',
                                   'thumbnailUrl': 'thumbnail_url',
                                 })
+
+  df_artist = pd.read_csv(PATHS['PROCESSED_ARTIST_DATA_PATH'])
+  
+  # check for foreign key integrity
+  invalid_artists = len(df_copy[~df_copy['artist_id'].isin(df_artist['id'])])
+  print(f'• Found {invalid_artists} rows with invalid foreign key values, dropping rows...')
+  
+  df_copy = df_copy[df_copy['artist_id'].isin(df_artist['id'])]
+  
+  invalid_artists = len(df_copy[~df_copy['artist_id'].isin(df_artist['id'])])
+  print(f'• There are now {invalid_artists} invalid rows.')
   
   save_file(df_copy, PATHS['PROCESSED_ARTWORK_DATA_PATH'])
   

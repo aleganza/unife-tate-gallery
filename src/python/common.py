@@ -30,6 +30,12 @@ def handle_zero_values(df, values):
 
 def update_column_names(df, new_column_names):
   return df.rename(columns=new_column_names)
+
+def remove_commas(df):
+  for col in df.columns:
+    df[col] = df[col].str.replace(",", "")
+    
+  return df
     
 def handle_missing(df, defaults):
   n_rows_with_missing_values = df.isnull().any(axis=1).sum()
