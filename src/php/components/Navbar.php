@@ -4,13 +4,13 @@
   </nav>
   <nav>
     <?php
-    $current_page = basename($_SERVER['PHP_SELF']);
+    $current_page = $_SERVER['REQUEST_URI'];
     ?>
-    <a href="index.php" class="<?= ($current_page == 'index.php') ? 'active' : '' ?>">Home</a>
-    <a href="artisti.php" class="<?= ($current_page == 'artisti.php') ? 'active' : '' ?>">Artisti</a>
-    <a href="correlazioni.php" class="<?= ($current_page == 'correlazioni.php') ? 'active' : '' ?>">Correlazioni</a>
-    <a href="opere.php" class="<?= ($current_page == 'opere.php') ? 'active' : '' ?>">Opere</a>
-    <a href="statistiche.php" class="<?= ($current_page == 'statistiche.php') ? 'active' : '' ?>">Statistiche</a>
+    <a href="/unife-tate-gallery/" class="<?= ($current_page == '/unife-tate-gallery/') ? 'active' : '' ?>">Home</a>
+    <a href="/unife-tate-gallery/artisti" class="<?= ($current_page == '/unife-tate-gallery/artisti') ? 'active' : '' ?>">Artisti</a>
+    <a href="/unife-tate-gallery/correlazioni" class="<?= ($current_page == '/unife-tate-gallery/correlazioni') ? 'active' : '' ?>">Correlazioni</a>
+    <a href="/unife-tate-gallery/opere" class="<?= ($current_page == '/unife-tate-gallery/opere') ? 'active' : '' ?>">Opere</a>
+    <a href="/unife-tate-gallery/statistiche" class="<?= ($current_page == '/unife-tate-gallery/statistiche') ? 'active' : '' ?>">Statistiche</a>
   </nav>
 </header>
 <hr />
