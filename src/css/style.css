@@ -161,6 +161,10 @@ nav .nav-items a.active, a:hover {
   font-size: 0.8vw;
   color: white;
   font-weight: 500;
+  max-width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   transform: translateY(50%);
 }
 
