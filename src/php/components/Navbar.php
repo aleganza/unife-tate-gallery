@@ -16,5 +16,5 @@ $current_page = $_SERVER['REQUEST_URI'];
       </div>
     </nav>
   </div>
+  <hr />
 </header>
-<hr />
