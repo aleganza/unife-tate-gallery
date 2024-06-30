@@ -79,7 +79,8 @@ nav .nav-items a {
   transition: 0.2s ease;
 }
 
-nav .nav-items a.active, a:hover {
+nav .nav-items a.active,
+a:hover {
   color: var(--primary-color);
 }
 
@@ -128,7 +129,8 @@ nav .nav-items a.active, a:hover {
 
 .body-container .column .artwork-card {
   position: relative;
-  overflow: hidden; /* Assicura che l'overflow non esca dalla card */
+  overflow: hidden;
+  /* Assicura che l'overflow non esca dalla card */
   transition: 0.2s ease;
   will-change: translate;
 }
@@ -205,13 +207,20 @@ form {
   min-width: 100%;
   margin-bottom: 100px;
 }
+
 .clearfix {
   clear: both;
 }
+
 form .group {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+form .group label {
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 form select {
@@ -222,6 +231,7 @@ form select {
   margin-right: 10px;
   font-size: 16px;
   cursor: pointer;
+  background-color: #f2f2f2;
 }
 
 form select:focus {
@@ -232,7 +242,7 @@ form button {
   display: flex;
   padding: 10px 20px;
   background-color: var(--primary-color);
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 4px;
   font-size: 16px;
@@ -243,4 +253,33 @@ form button {
 
 form button.reset {
   background-color: var(--danger-color);
+}
+
+.artworks-table {
+  margin-top: 20px;
+}
+
+.artworks-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.artworks-table table th,
+.artworks-table table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.artworks-table table th {
+  background-color: #f2f2f2;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.artworks-table table td img.thumbnail {
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }

@@ -13,24 +13,24 @@
   ?>
 
   <?php
-  // render artworks
+  // render data
   require("src/php/components/render_artworks.php");
 
   $params = array(
     "artist_id" => isset($_POST['artist_id']) ? $_POST['artist_id'] : '',
+    "medium" => isset($_POST['medium']) ? $_POST['medium'] : '',
     "year" => isset($_POST['year']) ? $_POST['year'] : '',
     "acquisition_year" => isset($_POST['acquisition_year']) ? $_POST['acquisition_year'] : ''
   );
 
-  // Step 2: Estrarre i valori dell'array associativo
   $artist_id = $params['artist_id'];
+  $medium = $params['medium'];
   $year = $params['year'];
   $acquisition_year = $params['acquisition_year'];
 
-  // Step 3: Modificare la query per utilizzare i valori dell'array associativo
   $artworks_query = "SELECT *
             FROM artwork
-            WHERE (artist_id LIKE '%$artist_id%' AND year LIKE '%$year%' AND acquisition_year LIKE '%$acquisition_year%')
+            WHERE (artist_id LIKE '%$artist_id%' AND medium LIKE '%$medium%' AND year LIKE '%$year%' AND acquisition_year LIKE '%$acquisition_year%')
             LIMIT 500";
 
   // filters
@@ -44,6 +44,7 @@
   $rs1 = $db->query($query);
 
   $attributes = [
+    "medium",
     "year",
     "acquisition_year",
   ];

@@ -9,7 +9,7 @@ function render_artworks($query, $render_page_heading = false)
   $rs = $db->query($query);
   $record = $rs->fetch_assoc();
 
-  // preparing records to be rendered 1 for each column per time
+  // preparing records to be rendered 1 per column
   $columns = [[], [], [], []];
   $artwork = 0;
 
