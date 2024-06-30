@@ -48,6 +48,6 @@ The purpose of this project is to develop a PHP website to visualize the ![Tate 
 ```
 </details>
 
-## Tech stack
+## Tech Stack
 
 [![My Skills](https://skillicons.dev/icons?i=html,css,php,mysql,python)](https://skillicons.dev)
