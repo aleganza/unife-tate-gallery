@@ -14,7 +14,9 @@
   <div class="body-container">
     <?php
     require("src/php/components/render_artworks.php");
-    render_artworks("SELECT * FROM artwork LIMIT 500", true);
+    $randomOffset = rand(0, 10000);
+
+    render_artworks("SELECT * FROM artwork LIMIT $randomOffset, 50", true);
     ?>
   </div>
 </body>
