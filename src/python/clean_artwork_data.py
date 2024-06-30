@@ -26,10 +26,13 @@ def clean_artwork_data():
   
   # overall cleaning
   df_copy = _remove_duplicates(df_copy)
-  df_copy = set_to_zero_missing_numeric_attributes(df_copy, ['year'])
+  df_copy = set_to_zero_missing_numeric_attributes(df_copy, ['year', 'acquisitionYear'])
   df_copy = handle_missing(df_copy, ARTWORK_DEFAULT_VALUES)
   df_copy = sort_by_col(df_copy, 'id')
-  df_copy = handle_zero_values(df_copy, ['year'])
+  df_copy = handle_zero_values(df_copy, ['year', 'acquisitionYear'])
+  
+  # check for foreign key integrity
+  df_copy = _check_fk_integrity(df_copy)
   
   # rename columns
   df_copy = update_column_names(df_copy, {
@@ -41,11 +44,8 @@ def clean_artwork_data():
                                   'thumbnailUrl': 'thumbnail_url',
                                 })
   
-  # urls are broken, fixing them :)
+  # fix broken thumbnail urls
   df_copy = _fix_broken_thumbnail_urls(df_copy)
-  
-  # check for foreign key integrity
-  df_copy = _check_fk_integrity(df)
   
   save_file(df_copy, PATHS['PROCESSED_ARTWORK_DATA_PATH'])
   
@@ -78,18 +78,20 @@ def _remove_duplicates(df):
 def _check_fk_integrity(df):
   df_artist = pd.read_csv(PATHS['PROCESSED_ARTIST_DATA_PATH'])
   
-  invalid_artists = len(df[~df['artist_id'].isin(df_artist['id'])])
+  invalid_artists = len(df[~df['artistId'].isin(df_artist['id'])])
   print(f'• Found {invalid_artists} rows with invalid foreign key values, dropping rows...')
   
-  df = df[df['artist_id'].isin(df_artist['id'])]
+  df = df[df['artistId'].isin(df_artist['id'])]
   
-  invalid_artists = len(df[~df['artist_id'].isin(df_artist['id'])])
+  invalid_artists = len(df[~df['artistId'].isin(df_artist['id'])])
   print(f'• There are now {invalid_artists} invalid rows.')
   
   return df
 
 def _fix_broken_thumbnail_urls(df):
-  return df['thumbnail_url'].str.replace("/www.", "/media.")
+  df['thumbnail_url'] = df['thumbnail_url'].str.replace("/www.", "/media.")
+  
+  return df
 
 if __name__ == '__main__':
   clean_artwork_data()
