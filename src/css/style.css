@@ -3,6 +3,7 @@
 
 :root {
   --primary-color: #fe640d;
+  --danger-color: #ee4141;
   --page-width: 1600px;
   --horizontal-spacing: 30px;
   --column-gap: 35px;
@@ -88,14 +89,9 @@ nav .nav-items a.active, a:hover {
 
 .body-container {
   display: flex;
-  gap: var(--column-gap);
+  flex-direction: column;
   max-width: var(--page-width);
   margin: auto;
-  margin-top: 60px;
-}
-
-.body-container.vertical {
-  flex-direction: column;
 }
 
 .body-container .column {
@@ -107,6 +103,12 @@ nav .nav-items a.active, a:hover {
 
 .body-container .column .page-heading {
   width: 100%;
+}
+
+.artworks {
+  display: flex;
+  gap: var(--column-gap);
+  margin-top: 60px;
 }
 
 .page-heading h1 {
@@ -206,7 +208,9 @@ form {
   justify-content: space-between;
   min-width: 100%;
 }
-
+.clearfix {
+  clear: both;
+}
 form .group {
   display: flex;
   flex-direction: column;
@@ -238,4 +242,8 @@ form button {
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
   margin-left: 10px;
+}
+
+form button.reset {
+  background-color: var(--danger-color);
 }

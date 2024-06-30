@@ -13,14 +13,35 @@
   ?>
 
   <?php
+  // render artworks
+  require("src/php/components/render_artworks.php");
+
+  $params = array(
+    "artist_id" => isset($_POST['artist_id']) ? $_POST['artist_id'] : '',
+    "year" => isset($_POST['year']) ? $_POST['year'] : '',
+    "acquisition_year" => isset($_POST['acquisition_year']) ? $_POST['acquisition_year'] : ''
+  );
+
+  // Step 2: Estrarre i valori dell'array associativo
+  $artist_id = $params['artist_id'];
+  $year = $params['year'];
+  $acquisition_year = $params['acquisition_year'];
+
+  // Step 3: Modificare la query per utilizzare i valori dell'array associativo
+  $artworks_query = "SELECT *
+            FROM artwork
+            WHERE (artist_id LIKE '%$artist_id%' AND year LIKE '%$year%' AND acquisition_year LIKE '%$acquisition_year%')
+            LIMIT 500";
+
+  // filters
   $db = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASSWORD, $MYSQL_DB);
 
   // foreign key select
-  $sql = "SELECT DISTINCT at.name
-            FROM artist AS at, artwork AS ak
-            WHERE at.id=ak.artist_id
-            ORDER BY at.name";
-  $rs1 = $db->query($sql);
+  $query = "SELECT DISTINCT at.name, at.id
+          FROM artist AS at, artwork AS ak
+          WHERE at.id=ak.artist_id
+          ORDER BY at.name";
+  $rs1 = $db->query($query);
 
   $attributes = [
     "year",
@@ -28,18 +49,19 @@
   ];
   ?>
 
-  <div class="body-container vertical">
+  <div class="body-container">
     <div class="page-heading secondary">
       <h1 class="elegant">Search <span>artworks</span></h1>
     </div>
-    <form action="artworks.php" autocomplete="off" method="POST">
+    <form action="artworks" autocomplete="off" method="POST">
       <div class="group">
-        <label for="artist_name">Artist name</label>
-        <select name="artist_name" id="artist_name">
-          <option value="" disabled selected>Select artist name</option>
+        <label for="artist_id">Artist name</label>
+        <select name="artist_id">
+          <option value="" <?php echo $params['artist_id'] == '' ? 'selected' : ''; ?>>Any</option>
           <?php
           while ($record = $rs1->fetch_assoc()) {
-            echo '<option value="' . $record["name"] . '">' . $record["name"] . '</option>';
+            $selected = $record["id"] == $params['artist_id'] ? 'selected' : '';
+            echo '<option value="' . $record["id"] . '" ' . $selected . '>' . $record["name"] . '</option>';
           }
           ?>
         </select>
@@ -47,15 +69,16 @@
 
       <?php
       foreach ($attributes as $attr) {
-        $sql = "SELECT DISTINCT $attr FROM artwork ORDER BY $attr";
-        $rs = $db->query($sql);
+        $query = "SELECT DISTINCT $attr FROM artwork ORDER BY $attr";
+        $rs = $db->query($query);
 
         echo '<div class="group">';
         echo '<label for="' . $attr . '">' . ucfirst(str_replace('_', ' ', $attr)) . '</label>';
-        echo '<select name="' . $attr . '" id="' . $attr . '">';
-        echo '<option value="" disabled selected>Select ' . ucfirst(str_replace('_', ' ', $attr)) . '</option>';
+        echo '<select name="' . $attr . '">';
+        echo '<option value="" ' . ($params[$attr] == '' ? 'selected' : '') . '>Any</option>';
         while ($record = $rs->fetch_assoc()) {
-          echo '<option value="' . $record[$attr] . '">' . $record[$attr] . '</option>';
+          $selected = $record[$attr] == $params[$attr] ? 'selected' : '';
+          echo '<option value="' . $record[$attr] . '" ' . $selected . '>' . $record[$attr] . '</option>';
         }
         echo '</select>';
         echo '</div>';
@@ -64,8 +87,13 @@
       $db->close();
       ?>
 
+      <!-- <button class="reset" type="reset">Reset</button> -->
       <button type="submit" class="">Search</button>
     </form>
+
+    <?php
+    render_artworks($artworks_query);
+    ?>
   </div>
 </body>
 
