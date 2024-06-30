@@ -32,7 +32,6 @@ header {
   z-index: 9999;
   width: 100%;
   padding: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing);
-  background: hwb(0 100% 0% / 0.65);
   backdrop-filter: blur(10px);
 }
 
@@ -45,7 +44,7 @@ header .brand {
 }
 
 header .brand img {
-  width: 35px;
+  width: 65px;
 }
 
 /* if no logo but text */
@@ -63,8 +62,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
-  margin-bottom: 10px;
+  margin-top: 30px;
 }
 
 nav .nav-items {
@@ -85,13 +83,12 @@ nav .nav-items a.active, a:hover {
   color: var(--primary-color);
 }
 
-
-
 .body-container {
   display: flex;
   flex-direction: column;
   max-width: var(--page-width);
   margin: auto;
+  padding-top: 60px;
 }
 
 .body-container .column {
@@ -108,11 +105,10 @@ nav .nav-items a.active, a:hover {
 .artworks {
   display: flex;
   gap: var(--column-gap);
-  margin-top: 60px;
 }
 
 .page-heading h1 {
-  font-size: 2.5vw;
+  font-size: 2.8rem;
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -126,8 +122,8 @@ nav .nav-items a.active, a:hover {
 }
 
 .page-heading p {
-  font-size: 0.8vw;
-  line-height: 1.2vw;
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .body-container .column .artwork-card {
@@ -207,6 +203,7 @@ form {
   gap: 10px;
   justify-content: space-between;
   min-width: 100%;
+  margin-bottom: 100px;
 }
 .clearfix {
   clear: both;
