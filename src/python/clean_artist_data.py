@@ -21,9 +21,10 @@ def clean_artist_data():
   df = pd.read_csv(PATHS['RAW_ARTIST_DATA_PATH'])
   df_copy = df.copy()
   
-  # overall cleaning
   df_copy['gender'] = df_copy['gender'].replace({'Male': 'M', 'Female': 'F'})
-  # df_copy = remove_commas(df_copy)
+  print('• "Male" and "Female" values replaced with "M" and "F"')
+  
+  # overall cleaning
   df_copy = _remove_duplicates(df_copy)
   df_copy = set_to_zero_missing_numeric_attributes(df_copy, ['yearOfBirth', 'yearOfDeath'])
   df_copy = handle_missing(df_copy, ARTIST_DEFAULT_VALUES)
@@ -37,11 +38,6 @@ def clean_artist_data():
                                   'placeOfBirth': 'place_of_birth',
                                   'placeOfDeath': 'place_of_death',
                                 })
-  
-  # df_copy['year_of_birth'] = df_copy['year_of_birth'].astype(str)
-  # df_copy['place_of_death'] = df_copy['place_of_death'].astype(str)
-  
-  # check(df_copy)
   
   save_file(df_copy, PATHS['PROCESSED_ARTIST_DATA_PATH'])
   

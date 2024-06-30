@@ -29,6 +29,10 @@ def handle_zero_values(df, values):
   return df
 
 def update_column_names(df, new_column_names):
+  print("• Renaming columns...")
+  for name_couple in new_column_names:
+    print(f'\t• {name_couple} => {new_column_names[name_couple]}')
+  
   return df.rename(columns=new_column_names)
 
 def remove_commas(df):
