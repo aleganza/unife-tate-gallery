@@ -1,5 +1,5 @@
 <?php
-$current_page = $_SERVER['REQUEST_URI'];
+$current_page = parse_url($_SERVER['REQUEST_URI'])['path'];
 ?>
 <header>
   <div class="container">
