@@ -1,6 +1,9 @@
-CREATE DATABASE unife_tate_gallery;
+-- create and use db
 
+CREATE DATABASE unife_tate_gallery;
 USE unife_tate_gallery;
+
+-- create tables
 
 CREATE TABLE artist (
   id INTEGER NOT NULL,
@@ -37,19 +40,3 @@ CREATE TABLE artwork (
   PRIMARY KEY (id),
   FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
-
- -- MacOs path: /Applications/XAMPP/xamppfiles/htdocs/unife-tate-gallery/data/processed
-
-LOAD DATA INFILE 'X:/Sistema/Scuola/Informatica/GitHub/unife-tate-gallery/data/processed/artist_data.csv'
-INTO TABLE artist
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-LOAD DATA INFILE 'X:/Sistema/Scuola/Informatica/GitHub/unife-tate-gallery/data/processed/artwork_data.csv'
-INTO TABLE artwork
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
