@@ -38,12 +38,6 @@ CREATE TABLE artwork (
   FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
 
-/* 
-  gives 2 warnings:
-    | Warning | 1265 | Data truncated for column 'name' at row 3084 |
-    | Warning | 1265 | Data truncated for column 'name' at row 3504 |
-*/
-
  -- MacOs path: /Applications/XAMPP/xamppfiles/htdocs/unife-tate-gallery/data/processed
 
 LOAD DATA INFILE 'X:/Sistema/Scuola/Informatica/GitHub/unife-tate-gallery/data/processed/artist_data.csv'
@@ -53,15 +47,6 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-/* 
-  gives 6 warnings:
-    | Warning | 1265 | Data truncated for column 'credit_line' at row 18256         |
-    | Warning | 1265 | Data truncated for column 'thumbnail_copyright' at row 65233 |
-    | Warning | 1265 | Data truncated for column 'credit_line' at row 65599         |
-    | Warning | 1265 | Data truncated for column 'credit_line' at row 66900         |
-    | Warning | 1265 | Data truncated for column 'width' at row 67298               |
-    | Warning | 1265 | Data truncated for column 'title' at row 68295               |
- */
 LOAD DATA INFILE 'X:/Sistema/Scuola/Informatica/GitHub/unife-tate-gallery/data/processed/artwork_data.csv'
 INTO TABLE artwork
 FIELDS TERMINATED BY ','

@@ -1,7 +1,7 @@
 <?php
 require("src/php/utils/constants.php");
 
-$request = $_SERVER['REQUEST_URI'];
+$request = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 switch($request) {
   case "/$PROJECT_NAME/":
