@@ -12,8 +12,10 @@ ARTIST_DEFAULT_VALUES = {
   'dates': '',
   'yearOfBirth': 'Unknown',
   'yearOfDeath': 'Unknown',
-  'placeOfBirth': 'Unknown',
-  'placeOfDeath': 'Unknown',
+  'cityOfBirth': 'Unknown',
+  'stateOfBirth': 'Unknown',
+  'cityOfDeath': 'Unknown',
+  'stateOfDeath': 'Unknown',
   'url': '',
 }
 

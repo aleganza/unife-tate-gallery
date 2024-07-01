@@ -11,8 +11,10 @@ CREATE TABLE artist (
   gender VARCHAR(10) NOT NULL,
   year_of_birth VARCHAR(10) NOT NULL,
   year_of_death VARCHAR(10) NOT NULL,
-  place_of_birth VARCHAR(100) NOT NULL,
-  place_of_death VARCHAR(100) NOT NULL,
+  city_of_birth VARCHAR(100) NOT NULL,
+  state_of_birth VARCHAR(100) NOT NULL,
+  city_of_death VARCHAR(100) NOT NULL,
+  state_of_death VARCHAR(100) NOT NULL,
   url VARCHAR(300) NOT NULL,
 
   PRIMARY KEY (id)
