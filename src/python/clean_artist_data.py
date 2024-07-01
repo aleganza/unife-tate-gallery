@@ -32,7 +32,7 @@ def clean_artist_data():
   df_copy = sort_by_col(df_copy, 'id')
   df_copy = handle_zero_values(df_copy, ['yearOfBirth', 'yearOfDeath'])
   
-  # rename columns
+  # rename and reorder columns
   df_copy = update_column_names(df_copy, {
                                   'yearOfBirth': 'year_of_birth',
                                   'yearOfDeath': 'year_of_death',
@@ -41,6 +41,8 @@ def clean_artist_data():
                                   'cityOfDeath': 'city_of_death',
                                   'stateOfDeath': 'state_of_death',
                                 })
+
+  df_copy = _reorder_column(df_copy)
   
   save_file(df_copy, PATHS['PROCESSED_ARTIST_DATA_PATH'])
   
@@ -66,6 +68,10 @@ def _split_places(df):
   df.drop(columns=['placeOfBirth', 'placeOfDeath'], inplace=True)
 
   return df
+
+def _reorder_column(df):
+  print("• Reordering columns...")
+  return df.iloc[:, [0, 1, 2, 3, 4, 6, 7, 8, 9, 5]]
 
 if __name__ == '__main__':
   clean_artist_data()
