@@ -55,13 +55,15 @@ def _remove_duplicates(df):
 def _split_places(df):
   print(f'• Splitting some columns...')
   
-  df['cityOfBirth'] = df['placeOfBirth'].str.split(', ').str[0]
-  df['stateOfBirth'] = df['placeOfBirth'].str.split(', ').str[1]
+  birth_split = df['placeOfBirth'].str.split(', ', expand=True)
+  df['cityOfBirth'] = birth_split[0]
+  df['stateOfBirth'] = birth_split[1].fillna(birth_split[0])
 
   print(f'\t• placeOfBirth splitted into cityOfBirth and stateOfBirth')
 
-  df['cityOfDeath'] = df['placeOfDeath'].str.split(', ').str[0]
-  df['stateOfDeath'] = df['placeOfDeath'].str.split(', ').str[1]
+  death_split = df['placeOfDeath'].str.split(', ', expand=True)
+  df['cityOfDeath'] = death_split[0]
+  df['stateOfDeath'] = death_split[1].fillna(death_split[0])
 
   print(f'\t• cityOfDeath splitted into placeOfDeath and stateOfDeath')
 
