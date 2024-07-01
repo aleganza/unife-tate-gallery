@@ -5,7 +5,9 @@ $current_page = parse_url($_SERVER['REQUEST_URI'])['path'];
   <div class="container">
     <nav>
       <div class="brand">
-        <img src="/unife-tate-gallery/public/logo.png" alt="brand">
+        <a href="/unife-tate-gallery/">
+          <img src="/unife-tate-gallery/public/logo.png" alt="brand">
+        </a>
       </div>
       <div class="nav-items">
         <a href="/unife-tate-gallery/" class="<?= ($current_page == '/unife-tate-gallery/') ? 'active' : '' ?>">Home</a>
