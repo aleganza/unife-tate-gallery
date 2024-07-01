@@ -56,6 +56,7 @@ header .brand.elegant {
 .container {
   max-width: var(--page-width);
   margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 nav {
@@ -282,4 +283,16 @@ form button.reset {
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+.error_404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.error_404 h1 {
+  text-transform: uppercase;
+  margin-top: 15px;
 }

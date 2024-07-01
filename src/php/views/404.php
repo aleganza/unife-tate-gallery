@@ -12,7 +12,10 @@
   <?php
   require("src/php/components/navbar.php");
   ?>
-  <h1>Errore 404: pagina non trovata</h1>
+  <div class="error_404">
+    <img src="/unife-tate-gallery/public/404.svg" width="45%" alt="404"></img>
+    <h1>Error 404: page not found</h1>
+  </div>
 </body>
 
 </html>
