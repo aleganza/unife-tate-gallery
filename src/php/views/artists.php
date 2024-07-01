@@ -17,16 +17,30 @@
   $params = array(
     "name" => isset($_POST['name']) ? $_POST['name'] : '',
     "year_of_birth" => isset($_POST['year_of_birth']) ? $_POST['year_of_birth'] : '',
-    "place_of_birth" => isset($_POST['place_of_birth']) ? $_POST['place_of_birth'] : ''
+    "year_of_death" => isset($_POST['year_of_death']) ? $_POST['year_of_death'] : '',
+    "city_of_birth" => isset($_POST['city_of_birth']) ? $_POST['city_of_birth'] : '',
+    "state_of_birth" => isset($_POST['state_of_birth']) ? $_POST['state_of_birth'] : '',
+    "city_of_death" => isset($_POST['city_of_death']) ? $_POST['city_of_death'] : '',
+    "state_of_death" => isset($_POST['state_of_death']) ? $_POST['state_of_death'] : ''
   );
 
   $name = $params['name'];
   $year_of_birth = $params['year_of_birth'];
-  $place_of_birth = $params['place_of_birth'];
+  $year_of_death = $params['year_of_death'];
+  $city_of_birth = $params['city_of_birth'];
+  $state_of_birth = $params['state_of_birth'];
+  $city_of_death = $params['city_of_death'];
+  $state_of_death = $params['state_of_death'];
 
   $artist_query = "SELECT *
                     FROM artist
-                    WHERE (name LIKE '%$name%' AND year_of_birth LIKE '%$year_of_birth%' AND place_of_birth LIKE '%$place_of_birth%')";
+                    WHERE (name LIKE '%$name%' 
+                      AND year_of_birth LIKE '%$year_of_birth%'
+                      AND year_of_death LIKE '%$year_of_death%'
+                      AND city_of_birth LIKE '%$city_of_birth%' 
+                      AND state_of_birth LIKE '%$state_of_birth%' 
+                      AND city_of_death LIKE '%$city_of_death%' 
+                      AND state_of_death LIKE '%$state_of_death%')";
 
   $query = "SELECT *
             FROM artist
@@ -35,7 +49,11 @@
 
   $attributes = [
     "year_of_birth",
-    "place_of_birth",
+    "year_of_death",
+    "city_of_birth",
+    "state_of_birth",
+    "city_of_death",
+    "state_of_death",
   ];
 
   ?>
@@ -79,10 +97,11 @@
       <button type="submit" class="">Search</button>
     </form>
     <?php
-      $name == '' && $year_of_birth == '' && $place_of_birth == ''
+    $name == '' && $year_of_birth == '' && $year_of_death == '' && $city_of_birth == '' && $state_of_birth == '' && $city_of_death == '' && $state_of_death == ''
       ? render_artirst()
       : render_artirst($artist_query);
-      ?>
+    ?>
   </div>
 </body>
+
 </html>

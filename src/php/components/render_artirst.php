@@ -13,8 +13,10 @@ function render_artirst($query = "SELECT * FROM artist") {
     "gender",
     "year_of_birth",
     "year_of_death",
-    "place_of_birth",
-    "place_of_death"
+    "city_of_birth",
+    "state_of_birth",
+    "city_of_death",
+    "state_of_death"
   ];
 
   echo '<div class="artworks-table">
