@@ -17,9 +17,8 @@
   $db = new mysqli($MYSQL_HOST, $MYSQL_USER, $MYSQL_PASSWORD, $MYSQL_DB);
 
   // foreign key select
-  $query = "SELECT DISTINCT at.name, at.id
-          FROM artist AS at, artwork AS ak
-          WHERE at.id=ak.artist_id
+  $query = "SELECT at.name, at.id
+          FROM artist AS at
           ORDER BY at.name";
   $rs1 = $db->query($query);
   ?>
