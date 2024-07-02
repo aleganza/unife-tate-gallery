@@ -307,8 +307,15 @@ form button.reset {
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.10) 0px 0px 0px 1px;
   padding: 20px;
+  width: 33%;
 }
 
 .statistic form {
   margin-bottom: -1px;
+}
+
+#statistics {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
