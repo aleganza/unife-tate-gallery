@@ -59,7 +59,7 @@
   ?>
   <div class="body-container">
     <div class="page-heading secondary">
-      <h1 class="elegant">artists</h1>
+      <h1 class="elegant">Artists</h1>
     </div>
     <form action="artists" autocomplete="off" method="POST">
       <div class="group">

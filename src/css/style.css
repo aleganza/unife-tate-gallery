@@ -292,7 +292,23 @@ form button.reset {
   padding-top: 50px;
 }
 
-.error_404 h1 {
-  text-transform: uppercase;
-  margin-top: 15px;
+.error_404 h2 {
+  text-transform: capitalize;
+}
+
+.statistic-container {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.statistic {
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.10) 0px 0px 0px 1px;
+  padding: 20px;
+}
+
+.statistic form {
+  margin-bottom: -1px;
 }

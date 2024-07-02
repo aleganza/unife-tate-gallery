@@ -52,7 +52,7 @@
 
   <div class="body-container">
     <div class="page-heading secondary">
-      <h1 class="elegant">Search <span>artworks</span></h1>
+      <h1 class="elegant">Search <span>Artworks</span></h1>
     </div>
     <form action="artworks" autocomplete="off" method="POST">
       <div class="group">

@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="src/css/style.css">
-  <title>Unife Tate Gallery</title>
+<?php
+  require("src/php/components/head.php");
+  ?>
 </head>
 
 <body>
@@ -14,7 +13,7 @@
   ?>
   <div class="error_404">
     <img src="/unife-tate-gallery/public/404.svg" width="45%" alt="404"></img>
-    <h1>Error 404: page not found</h1>
+    <h2 class="elegant">Error 404: page not found</h2>
   </div>
 </body>
 
