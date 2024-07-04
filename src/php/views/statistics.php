@@ -39,9 +39,11 @@
 
 // Queries of second statistic 
   $query3 = "SELECT DISTINCT state_of_birth 
-              FROM artist";
+              FROM artist
+              ORDER BY state_of_birth";
   $query4 = "SELECT DISTINCT state_of_death
-              FROM artist";
+              FROM artist
+              ORDER BY state_of_death";
   $query5 = "SELECT COUNT(state_of_birth) AS state_of_birth
               FROM artist 
               WHERE state_of_birth = '$state_of_birth'";
@@ -51,7 +53,8 @@
 
 // Queries of third statistic 
   $query7 = "SELECT name
-              FROM artist";
+              FROM artist
+              ORDER BY name";
   $query8 = "SELECT name, COUNT(*) AS artworks 
               FROM artist, artwork 
               WHERE artist.id=artwork.artist_id
@@ -59,7 +62,8 @@
 
 // Queries of fourth statistic 
   $query9 = "SELECT DISTINCT medium 
-              FROM artwork";
+              FROM artwork
+              ORDER BY medium";
   $query10 = "SELECT COUNT(DISTINCT artist.id) AS artists
                 FROM artwork, artist
                 WHERE artwork.artist_id=artist.id
@@ -75,7 +79,7 @@
                 AND artwork.year='$year2'";
 
 // Queries of sixth statistic 
-  $query13 = "SELECT DISTINCT artist.gender
+  $query13 = "SELECT DISTINCT gender
               FROM artist";
   $query14 = "SELECT COUNT(*) AS cnt
                 FROM artwork, artist
