@@ -1,0 +1,345 @@
+%% ANT LABS Technical Documentation		
+%% Software Manual and Technical Document Template	
+%% 									
+%% This provides an example of a software manual created in Overleaf.
+
+\documentclass{ol-softwaremanual}
+%---- Required Packages and Functions ----
+
+\usepackage{graphicx}  % For including images
+\usepackage{fancyhdr}  % For custom headers and footers
+\usepackage{microtype} % For typographical enhancements
+\usepackage{minted}    % For code listings
+\usepackage{amsmath}   % For equations and mathematics
+\usepackage{hyperref}  % For hyperlinks
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}  % For including images
+\usepackage{fancyhdr}  % For custom headers and footers
+\usepackage{microtype} % For typographical enhancements
+\usepackage{minted}    % For code listings
+\usepackage{amsmath}   % For equations and mathematics
+\usepackage{hyperref}  % For hyperlinks
+\usepackage{array}           % For table customization
+\usepackage{booktabs}        % For better table lines
+
+% Set page size and margins
+\usepackage[a4paper,top=3cm,bottom=3cm,left=2cm,right=2cm,headheight=50pt,headsep=20pt]{geometry}
+
+% Custom header
+\pagestyle{fancy}
+\fancyhf{}  % Clear all header and footer fields
+\fancyhead[L]{%
+   \textit{Relazione Basi di Dati}
+}
+
+% Custom footer
+\fancyfoot[L]{%
+  \parbox{16.7cm}{%
+    \centering \thepage
+  }
+}
+
+% Custom macros used in this example document
+\newcommand{\doclink}[2]{\href{#1}{#2}\footnote{\url{#1}}}
+\newcommand{\cs}[1]{\texttt{\textbackslash #1}}
+
+
+% Frontmatter data; appears on title page
+\title{Relazione Progetto \\Basi di Dati}
+\version{1.0.0}
+\author{Simone Acuti \& Alessio Ganzarolli}
+% Define a page style with logo
+\softwarelogo{\includegraphics[width=6cm]{unife_logo.png}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Pulizia dei dati}
+
+Gli script per la pulizia dei dati sono stati racchiusi nella directory src/python, e si compone dei seguenti file:
+\begin{itemize}
+    \item \textbf{clean\_artist\_data.py}: passaggi per pulire il dataset artist;
+    \item \textbf{clean\_artwork\_data.py}: passaggi per pulire il dataset artwork;
+    \item \textbf{common.py}: funzioni comuni per la pulizia e altri scopi;
+    \item \textbf{constants.py}: costanti utili quali percorsi di file e valori di default per gli attributi;
+    \item \textbf{main.py}: script per eseguire entrambe le pulizie in modo concorrente;
+\end{itemize}
+Ogni operazione di pulizia eseguita viene illustrata nel dettaglio all’utente tramite il terminale.
+
+\subsection{Pulizia dataset artist}
+Il dataset presentava dati molto grezzi che meritavano una pulita. Più nel dettaglio:
+\begin{itemize}
+    \item Sostituzione dei valori Male e Female della colonna \verb|gender| con M ed F.
+    \item Rimozione della colonna \verb|dates| per ridondanza, in quanto i valori al suo interno erano già presenti 
+    nelle colonne \verb|yearOfBirth| e \verb|yearOfDeath|;
+    \item Scissione della colonna \verb|placeOfBirth| in \verb|cityOfBirth| e \verb|stateOfBirth|, e della colonna \verb|placeOfDeath| in 
+    \verb|cityOfDeath| e \verb|stateOfDeath|;
+    \item Operazioni comuni elencate più sotto.
+\end{itemize}
+
+\subsection{Pulizia dataset artwork}
+Anche questo dataset era colmo di valori ridondanti e dati consistenti, di conseguenza sono state effettuate le seguenti operazioni:
+\begin{itemize}
+    \item Rimozione di alcuni valori inappropriati (c., (upper), (each)…);
+    \item Rimozione delle colonne \verb|artist|, \verb|dateText| e \verb|dimensions| per ridondanza;
+    \item Riparazione dei link alle immagini delle opere sostituendo \verb|www| con \verb|media|;
+    \item Operazioni comuni elencate più sotto;
+    \item Rimozione di 6 righe in quanto il loro valore di \textbf{Foreign Key} non era presente nella colonna referenziata del database artist.
+\end{itemize}
+
+\newpage
+\subsection{Operazioni comuni}
+Alcune operazioni di pulizia sono state eseguite ad entrambi i dataset:
+\begin{itemize}
+    \item Gestione di tutti i valori mancanti inserendo al loro posto dei valori di default per ogni colonna collocati nel 
+    file \textbf{constants.py};
+    \item Ordinamento tramite colonna \verb|id|;
+    \item Conversione di eventuali nomi di attributi dal camelCase allo snake\_case;
+\end{itemize}
+
+\section{Query SQL}
+
+\subsection{Punto 1}
+\begin{itemize}
+    \item Le opzioni di questo tag select è il nome degli artisti:
+    \begin{minted}{sql}
+    SELECT *
+    FROM artist
+    ORDER BY name
+    \end{minted}
+    \item Le opzioni di questo tag select è l'anno di nascita degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT year_of_birth
+    FROM artist
+    ORDER BY year_of_birth
+    \end{minted}
+    \item Le opzioni di questo tag select è l'anno di morte degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT year_of_death
+    FROM artist
+    ORDER BY year_of_death
+    \end{minted}
+    \item Le opzioni di questo tag select è la citta di nascita degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT city_of_birth
+    FROM artist
+    ORDER BY city_of_birth
+    \end{minted}
+    \item Le opzioni di questo tag select è la citta in cui morte degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT city_of_death
+    FROM artist
+    ORDER BY city_of_death
+    \end{minted}
+    \item Le opzioni di questo tag select sono gli stati di nascita degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT state_of_birth
+    FROM artist
+    ORDER BY state_of_birth
+    \end{minted}
+    \item Le opzioni di questo tag select sono gli stati in cui gli artisti sono morti:
+    \begin{minted}{sql}
+    SELECT DISTINCT state_of_death
+    FROM artist
+    ORDER BY state_of_death
+    \end{minted}
+    \item Tabella mostrati:
+    \begin{minted}{sql}
+    SELECT *
+    FROM artist
+    WHERE (
+    name LIKE '%$name%' 
+    AND year_of_birth LIKE '%$year_of_birth%'
+    AND year_of_death LIKE '%$year_of_death%'
+    AND city_of_birth LIKE '%$city_of_birth%' 
+    AND state_of_birth LIKE '%$state_of_birth%' 
+    AND city_of_death LIKE '%$city_of_death%' 
+    AND state_of_death LIKE '%$state_of_death%')
+    \end{minted}
+\end{itemize}
+
+\subsection{Punto 2}
+\begin{itemize}
+    \item Le opzioni di questo tag select è il nome degli artisti:
+    \begin{minted}{sql}
+    SELECT at.name, at.id 
+    FROM artist AS at 
+    ORDER BY at.name
+    \end{minted}
+    \item Tabella con dipinti e informazioni:
+    \begin{minted}{sql}
+    SELECT ak.*, at.name 
+    FROM artist AS at, artwork AS ak
+    WHERE ak.artist_id='$artist_id'
+    AND at.id=ak.artist_id
+    LIMIT 500
+    \end{minted}
+\end{itemize}
+
+\subsection{Punto 3}
+\begin{itemize}
+    \item Le opzioni di questo tag select è il nome degli artisti:
+    \begin{minted}{sql}
+    SELECT at.name, at.id
+    FROM artist AS at
+    ORDER BY at.name
+    \end{minted}
+    \item Le opzioni di questo tag select è il medium dei dipinti:
+    \begin{minted}{sql}
+    SELECT DISTINCT medium 
+    FROM artwork
+    ORDER BY medium
+    \end{minted}
+    \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
+    \begin{minted}{sql}
+    SELECT DISTINCT year 
+    FROM artwork
+    ORDER BY year
+    \end{minted}
+    \item Le opzioni di questo tag select è l'anno di acquisizione dei dipinti:
+    \begin{minted}{sql}
+    SELECT DISTINCT acquisition_year 
+    FROM artwork
+    ORDER BY acquisition_year
+    \end{minted}
+    \item Dipinti mostrati:
+    \begin{minted}{sql}
+    SELECT *
+    FROM artwork
+    WHERE (
+    artist_id LIKE '%$artist_id%' 
+    AND medium LIKE '%$medium%'
+    AND year LIKE '%$year%'
+    AND acquisition_year LIKE '%$acquisition_year%')
+    LIMIT 500
+    \end{minted}
+    Dove ogni variabile è il valore da filtrare passato tramite POST che, nel caso non ci fosse, diventa una stringa vuota.
+\end{itemize}
+
+\subsection{Punto 4}
+\begin{itemize}
+    \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
+    \begin{minted}{sql}
+    SELECT DISTINCT year 
+    FROM artwork
+    ORDER BY year
+    \end{minted}
+    \item Numero di dipinti fatti nell'anno selezionato:
+    \begin{minted}{sql}
+    SELECT COUNT(*)
+    FROM artwork
+    WHERE year='$year'
+    \end{minted}
+    \item Le opzioni di questo tag select sono le nazioni di nascita degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT state_of_birth 
+    FROM artist
+    ORDER BY state_of_birth
+    \end{minted}
+    \item Le opzioni di questo tag select sono le nazioni in cui gli artisti sono morti:
+    \begin{minted}{sql}
+    SELECT DISTINCT state_of_death
+    FROM artist
+    ORDER BY state_of_death
+    \end{minted}
+    \item Numero di artisti nati nella nazione selezionata:
+    \begin{minted}{sql}
+    SELECT COUNT(*)
+    FROM artist 
+    WHERE state_of_birth = '$state_of_birth'
+    \end{minted}
+    \item Numero di artisti morti nella nazione selezionata:
+    \begin{minted}{sql}
+    SELECT COUNT(*)
+    FROM artist 
+    WHERE state_of_death = '$state_of_death'
+    \end{minted}
+    \item Le opzioni di questo tag select è il nome degli artisti:
+    \begin{minted}{sql}
+    SELECT name
+    FROM artist
+    ORDER BY name
+    \end{minted}
+    \item Numero di dipinti fatti dall'artista selezionato:
+    \begin{minted}{sql}
+    SELECT name, COUNT(*)
+    FROM artist, artwork 
+    WHERE artist.id=artwork.artist_id
+    AND artist.name='$name'
+    \end{minted}
+    \item Le opzioni di questo tag select è il medium dei dipinti:
+    \begin{minted}{sql}
+    SELECT DISTINCT medium 
+    FROM artwork
+    ORDER BY medium
+    \end{minted}
+    \item Numero di dipinti fatti dall'artista selezionato:
+    \begin{minted}{sql}
+    SELECT name, COUNT(*)
+    FROM artist, artwork 
+    WHERE artist.id=artwork.artist_id
+    AND artist.name='$name'
+    \end{minted}
+    \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
+    \begin{minted}{sql}
+    SELECT DISTINCT year
+    FROM artwork
+    ORDER BY year
+    \end{minted}
+    \item Numero di dipinti fatti nell'anno selezionato:
+    \begin{minted}{sql}
+    SELECT DISTINCT COUNT(DISTINCT artist.id) AS artists 
+    FROM artist, artwork 
+    WHERE artist.id = artwork.artist_id 
+    AND artwork.year='$year'
+    \end{minted}
+    \item Le opzioni di questo tag select sono i gender degli artisti:
+    \begin{minted}{sql}
+    SELECT DISTINCT gender
+    FROM artist
+    \end{minted}
+    \item Numero di dipinti fatti dal gender selezionato:
+    \begin{minted}{sql}
+    SELECT COUNT(*)
+    FROM artwork, artist
+    WHERE artist.id=artwork.artist_id
+    AND artist.gender='$gender'
+    \end{minted}
+\end{itemize}
+
+\section{Pagina aggiuntiva}
+Per avere una schermata di benvenuto nel sito, è stata aggiunta una pagina iniziale (home), che mostra alcuni dipinti randomici da 
+tutto il database tramite la query:
+\begin{minted}{sql}
+    SELECT *
+    FROM artwork
+    LIMIT '$randomOffset', 50
+\end{minted}
+Dove \verb|$randomOffset| è un intero random con valore da 0 a 10000.
+
+\newpage
+\section{Riempimento del database}
+Per riempire le tabelle viene usata la seguente query per la tabella artist:
+\begin{minted}{sql}
+    LOAD DATA INFILE 'percorso/csv/artist'
+    INTO TABLE artist
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
+\end{minted}
+E la seguente per la tabella artwork:
+\begin{minted}{sql}
+    LOAD DATA INFILE 'percorso/csv/artwork'
+    INTO TABLE artwork
+    FIELDS TERMINATED BY ','
+    ENCLOSED BY '"'
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
+\end{minted}
+
+\end{document}
