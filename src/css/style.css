@@ -33,6 +33,7 @@ header {
   width: 100%;
   padding: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing);
   backdrop-filter: blur(10px);
+  background-color: #ffffff75;
 }
 
 header .brand {
