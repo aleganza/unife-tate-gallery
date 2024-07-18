@@ -42,7 +42,7 @@
                       AND city_of_death LIKE '%$city_of_death%' 
                       AND state_of_death LIKE '%$state_of_death%')";
 
-  $query = "SELECT *
+  $query = "SELECT name
             FROM artist
             ORDER BY name";
   $rs1 = $db->query($query);
