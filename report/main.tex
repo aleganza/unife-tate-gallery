@@ -103,51 +103,26 @@ Alcune operazioni di pulizia sono state eseguite ad entrambi i dataset:
 
 \section{Query SQL}
 
+Siccome le pagine dei punti 1 e 3 comportano l'utilizzo di molti filtri, vi è la necessità di creare una query per ogni tag. Dato che hanno la stessa 
+struttura, possiamo scriverne una unica che viene chiamata più volte iterando su un array contenente i nomi degli attributi (indicate con *).
+
 \subsection{Punto 1}
 \begin{itemize}
-    \item Le opzioni di questo tag select è il nome degli artisti:
+    \item Riempimento tag select con i nomi degli artisti:
     \begin{minted}{sql}
-    SELECT *
+    SELECT name
     FROM artist
     ORDER BY name
     \end{minted}
-    \item Le opzioni di questo tag select è l'anno di nascita degli artisti:
+    \item *Riempimento dei rimanenti tag select per i filtri:
     \begin{minted}{sql}
-    SELECT DISTINCT year_of_birth
+    SELECT DISTINCT '$attr'
     FROM artist
-    ORDER BY year_of_birth
+    ORDER BY '$attr'
     \end{minted}
-    \item Le opzioni di questo tag select è l'anno di morte degli artisti:
-    \begin{minted}{sql}
-    SELECT DISTINCT year_of_death
-    FROM artist
-    ORDER BY year_of_death
-    \end{minted}
-    \item Le opzioni di questo tag select è la citta di nascita degli artisti:
-    \begin{minted}{sql}
-    SELECT DISTINCT city_of_birth
-    FROM artist
-    ORDER BY city_of_birth
-    \end{minted}
-    \item Le opzioni di questo tag select è la citta in cui morte degli artisti:
-    \begin{minted}{sql}
-    SELECT DISTINCT city_of_death
-    FROM artist
-    ORDER BY city_of_death
-    \end{minted}
-    \item Le opzioni di questo tag select sono gli stati di nascita degli artisti:
-    \begin{minted}{sql}
-    SELECT DISTINCT state_of_birth
-    FROM artist
-    ORDER BY state_of_birth
-    \end{minted}
-    \item Le opzioni di questo tag select sono gli stati in cui gli artisti sono morti:
-    \begin{minted}{sql}
-    SELECT DISTINCT state_of_death
-    FROM artist
-    ORDER BY state_of_death
-    \end{minted}
-    \item Tabella mostrati:
+    La query viene chiamata per gli attributi: \verb|year_of_birth|, \verb|year_of_death|,
+    \verb|city_of_birth|, \verb|state_of_birth|, \verb|city_of_death|, \verb|state_of_death|.
+    \item Risultati della ricerca:
     \begin{minted}{sql}
     SELECT *
     FROM artist
@@ -164,7 +139,7 @@ Alcune operazioni di pulizia sono state eseguite ad entrambi i dataset:
 
 \subsection{Punto 2}
 \begin{itemize}
-    \item Le opzioni di questo tag select è il nome degli artisti:
+    \item Riempimento tag select con i nomi degli artisti:
     \begin{minted}{sql}
     SELECT at.name, at.id 
     FROM artist AS at 
@@ -182,31 +157,20 @@ Alcune operazioni di pulizia sono state eseguite ad entrambi i dataset:
 
 \subsection{Punto 3}
 \begin{itemize}
-    \item Le opzioni di questo tag select è il nome degli artisti:
+    \item Riempimento tag select con i nomi degli artisti:
     \begin{minted}{sql}
     SELECT at.name, at.id
     FROM artist AS at
     ORDER BY at.name
     \end{minted}
-    \item Le opzioni di questo tag select è il medium dei dipinti:
+    \item *Riempimento dei rimanenti tag select per i filtri:
     \begin{minted}{sql}
-    SELECT DISTINCT medium 
+    SELECT DISTINCT '$attr' 
     FROM artwork
-    ORDER BY medium
+    ORDER BY '$attr'
     \end{minted}
-    \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
-    \begin{minted}{sql}
-    SELECT DISTINCT year 
-    FROM artwork
-    ORDER BY year
-    \end{minted}
-    \item Le opzioni di questo tag select è l'anno di acquisizione dei dipinti:
-    \begin{minted}{sql}
-    SELECT DISTINCT acquisition_year 
-    FROM artwork
-    ORDER BY acquisition_year
-    \end{minted}
-    \item Dipinti mostrati:
+    La query viene chiamata per gli attributi: \verb|medium|, \verb|year|, \verb|acquisition_year|.
+    \item Risultati della ricerca:
     \begin{minted}{sql}
     SELECT *
     FROM artwork
@@ -217,9 +181,9 @@ Alcune operazioni di pulizia sono state eseguite ad entrambi i dataset:
     AND acquisition_year LIKE '%$acquisition_year%')
     LIMIT 500
     \end{minted}
-    Dove ogni variabile è il valore da filtrare passato tramite POST che, nel caso non ci fosse, diventa una stringa vuota.
 \end{itemize}
 
+\newpage
 \subsection{Punto 4}
 \begin{itemize}
     \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
@@ -321,7 +285,7 @@ tutto il database tramite la query:
 \end{minted}
 Dove \verb|$randomOffset| è un intero random con valore da 0 a 10000.
 
-\newpage
+
 \section{Riempimento del database}
 Per riempire le tabelle viene usata la seguente query per la tabella artist:
 \begin{minted}{sql}
