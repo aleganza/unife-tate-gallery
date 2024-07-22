@@ -21,7 +21,8 @@
 \usepackage{hyperref}  % For hyperlinks
 \usepackage{array}           % For table customization
 \usepackage{booktabs}        % For better table lines
-
+\usepackage{tikz}
+\usetikzlibrary{er}
 % Set page size and margins
 \usepackage[a4paper,top=3cm,bottom=3cm,left=2cm,right=2cm,headheight=50pt,headsep=20pt]{geometry}
 
@@ -65,7 +66,7 @@ Gli script per la pulizia dei dati sono stati racchiusi nella directory src/pyth
     \item \textbf{clean\_artist\_data.py}: passaggi per pulire il dataset artist;
     \item \textbf{clean\_artwork\_data.py}: passaggi per pulire il dataset artwork;
     \item \textbf{common.py}: funzioni comuni per la pulizia e altri scopi;
-    \item \textbf{constants.py}: costanti utili quali percorsi di file e valori di default per gli attributi;
+    \item \textbf{constants.py}: costanti utili, quali percorsi di file e valori di default per gli attributi;
     \item \textbf{main.py}: script per eseguire entrambe le pulizie in modo concorrente;
 \end{itemize}
 Ogni operazione di pulizia eseguita viene illustrata nel dettaglio all’utente tramite il terminale.
@@ -120,7 +121,7 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
     FROM artist
     ORDER BY '$attr'
     \end{minted}
-    La query viene chiamata per gli attributi: \verb|year_of_birth|, \verb|year_of_death|,
+    La query viene chiamata per gli attributi: \verb|year_of_birth|, \verb|year_of_death|, \\
     \verb|city_of_birth|, \verb|state_of_birth|, \verb|city_of_death|, \verb|state_of_death|.
     \item Risultati della ricerca:
     \begin{minted}{sql}
@@ -185,8 +186,9 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
 
 \newpage
 \subsection{Punto 4}
+\subsubsection{Statistica 1}
 \begin{itemize}
-    \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
+    \item Riempimento tag select con gli anni di creazione di tutti i dipinti:
     \begin{minted}{sql}
     SELECT DISTINCT year 
     FROM artwork
@@ -198,13 +200,16 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
     FROM artwork
     WHERE year='$year'
     \end{minted}
-    \item Le opzioni di questo tag select sono le nazioni di nascita degli artisti:
+\end{itemize}
+\subsubsection{Statistica 2}
+\begin{itemize}
+    \item Riempimento tag select con le nazioni di nascita degli artisti:
     \begin{minted}{sql}
     SELECT DISTINCT state_of_birth 
     FROM artist
     ORDER BY state_of_birth
     \end{minted}
-    \item Le opzioni di questo tag select sono le nazioni in cui gli artisti sono morti:
+    \item Riempimento tag select con le nazioni in cui gli artisti sono morti:
     \begin{minted}{sql}
     SELECT DISTINCT state_of_death
     FROM artist
@@ -222,12 +227,16 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
     FROM artist 
     WHERE state_of_death = '$state_of_death'
     \end{minted}
-    \item Le opzioni di questo tag select è il nome degli artisti:
+\end{itemize}
+\subsubsection{Statistica 3}
+\begin{itemize}
+    \item Riempimento tag select con i nomi degli artisti:
     \begin{minted}{sql}
     SELECT name
     FROM artist
     ORDER BY name
     \end{minted}
+    \newpage
     \item Numero di dipinti fatti dall'artista selezionato:
     \begin{minted}{sql}
     SELECT name, COUNT(*)
@@ -235,20 +244,26 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
     WHERE artist.id=artwork.artist_id
     AND artist.name='$name'
     \end{minted}
-    \item Le opzioni di questo tag select è il medium dei dipinti:
+\end{itemize}
+\subsubsection{Statistica 4}
+\begin{itemize}
+    \item Riempimento tag select con i medium dei dipinti:
     \begin{minted}{sql}
     SELECT DISTINCT medium 
     FROM artwork
     ORDER BY medium
     \end{minted}
-    \item Numero di dipinti fatti dall'artista selezionato:
+    \item Numero di dipinti fatti dal medium selezionato:
     \begin{minted}{sql}
-    SELECT name, COUNT(*)
-    FROM artist, artwork 
-    WHERE artist.id=artwork.artist_id
-    AND artist.name='$name'
+    SELECT COUNT(DISTINCT artist.id) AS artists
+    FROM artwork, artist
+    WHERE artwork.artist_id=artist.id
+    AND artwork.medium='$medium'
     \end{minted}
-    \item Le opzioni di questo tag select è l'anno di creazione di tutti i dipinti:
+\end{itemize}
+\subsubsection{Statistica 5}
+\begin{itemize}
+    \item Riempimento tag select con gli anni di creazione di tutti i dipinti:
     \begin{minted}{sql}
     SELECT DISTINCT year
     FROM artwork
@@ -261,11 +276,15 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
     WHERE artist.id = artwork.artist_id 
     AND artwork.year='$year'
     \end{minted}
-    \item Le opzioni di questo tag select sono i gender degli artisti:
+\end{itemize}
+\subsubsection{Statistica 6}
+\begin{itemize}
+    \item Riempimento tag select con i gender degli artisti:
     \begin{minted}{sql}
     SELECT DISTINCT gender
     FROM artist
     \end{minted}
+    \newpage
     \item Numero di dipinti fatti dal gender selezionato:
     \begin{minted}{sql}
     SELECT COUNT(*)
@@ -275,7 +294,7 @@ struttura, possiamo scriverne una unica che viene chiamata più volte iterando s
     \end{minted}
 \end{itemize}
 
-\section{Pagina aggiuntiva}
+\section{Pagina iniziale}
 Per avere una schermata di benvenuto nel sito, è stata aggiunta una pagina iniziale (home), che mostra alcuni dipinti randomici da 
 tutto il database tramite la query:
 \begin{minted}{sql}
@@ -286,8 +305,9 @@ tutto il database tramite la query:
 Dove \verb|$randomOffset| è un intero random con valore da 0 a 10000.
 
 
-\section{Riempimento del database}
-Per riempire le tabelle viene usata la seguente query per la tabella artist:
+\section{Popolazione del database}
+
+Popolazione della tabella artist
 \begin{minted}{sql}
     LOAD DATA INFILE 'percorso/csv/artist'
     INTO TABLE artist
@@ -296,7 +316,9 @@ Per riempire le tabelle viene usata la seguente query per la tabella artist:
     LINES TERMINATED BY '\n'
     IGNORE 1 ROWS
 \end{minted}
-E la seguente per la tabella artwork:
+
+
+Popolazione della tabella artwork:
 \begin{minted}{sql}
     LOAD DATA INFILE 'percorso/csv/artwork'
     INTO TABLE artwork
@@ -306,4 +328,58 @@ E la seguente per la tabella artwork:
     IGNORE 1 ROWS
 \end{minted}
 
+\section{Diagrammi}
+\subsection{Diagramma ER}
+
+\tikzset{multi attribute/.style={attribute,double distance=1.5 pt}}
+\tikzset{derived attribute/.style={attribute, dashed}}
+\tikzset{total/.style={double distance=1.5 pt}}
+\tikzset{every entity/.style={draw=orange , fill=orange!20}}
+\tikzset{every attribute/.style={draw=gray, fill=green!20}}
+\tikzset{every relationship/.style={draw=red, fill=red!20}}
+\newcommand {\key}[1]{\underline {#1}}
+
+\begin{tikzpicture}[node distance=7em]
+\node[entity](artwork){Artwork};
+\node[attribute] (oid) at (-8, 1.9) {\key{ID}} edge (artwork);
+\node[attribute](dimensions) [ above of=artwork ] { Dimension } edge (artwork);
+\node[attribute](units) at (3.1, 5) { Units } edge (dimensions);
+\node[attribute](width) at (1.1, 5) { Width } edge (dimensions);
+\node[attribute](height) at (-1.1, 5) { Height } edge (dimensions);
+\node[attribute](depth) at (-3.2, 5) { Depth } edge (dimensions);
+\node[attribute](title) at (-4, 3) { Title } edge (artwork);
+\node[multi attribute] (medium) at (7, 0) { Medium } edge (artwork);
+\node[attribute](accension_number) at (-6, 0) { Accension number } edge (artwork);
+\node[attribute] (artist_role) at (-3.5, 4) {Artist role} edge (artwork);
+\node[attribute] (credit_line) at (7, 1) {Credit line} edge (artwork);
+\node[attribute] (year) at (-8, 0.9) {Year} edge (artwork);
+\node[attribute] (url) at (-7, 2.5) {Url} edge (artwork);
+\node[attribute] (acquisition_year) at (-7, 3.5) {Acquisition year} edge (artwork);
+\node[attribute] (inscription) at (4, 4) {Inscription} edge (artwork);
+\node[attribute] (thumbnail_copyright) at (6, 3) {Thumbnail copyright} edge (artwork);
+\node[attribute] (thumbnail_url) at (6.5, 2) {Thumbnail url} edge (artwork);
+
+\node[relationship] (create) [ below of=artwork ] { Create } edge (artwork);
+
+\node[entity] (artist) [below of=create] {Artist} edge (create);
+\node[attribute] (aid) [ left of=artist ] { \key {ID} } edge (artist) ;
+\node[attribute] (aname) [ right of=artist ] {Name} edge (artist);
+\node[attribute] (year_of_birth) at (-5,-7) {Year of birth} edge (artist);
+\node[attribute] (year_of_death) at (-3,-8) {Year of death} edge (artist);
+\node[attribute] (place_of_birth) at (-1, -9) {Place of birth} edge (artist);
+\node[attribute] (city) [ below left of=place_of_birth ] { City } edge (place_of_birth);
+\node[attribute] (state) [ below right of=place_of_birth ] { State } edge (place_of_birth);
+\node[attribute] (place_of_death) at (4, -8) {Place of death} edge (artist);
+\node[attribute] (city) [ below left of=place_of_death ] { City } edge (place_of_death);
+\node[attribute] (state) [ below right of=place_of_death ] { State } edge (place_of_death);
+\node[attribute] (gender) at (5,-7) {Gender} edge (artist);
+\node[attribute] (url) at (2, -9) {Url} edge (artist);
+
+\node[text width=2cm] at (2,-2.9) {1 : N};
+\node[text width=2cm] at (-0.5,-1.5) {0 : N};
+\node[text width=2cm] at (-0.5,-4.5) {1 : 1};
+\end{tikzpicture}
+
+\subsection{Modello relazionale}
+\includegraphics[scale=0.4]{relational_schema.png}
 \end{document}
